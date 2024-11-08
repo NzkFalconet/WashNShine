@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ContactForm.css'; // Make sure to add this CSS file
+import './ContactForm.css';
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -7,7 +7,6 @@ function ContactForm() {
     phone: '',
     email: '',
     vehicleType: '',
-    message: ''
   });
 
   const handleChange = (e) => {
@@ -15,11 +14,38 @@ function ContactForm() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form data submitted:', formData);
-    alert('Thank you! Your details have been submitted.');
-    setFormData({ name: '', phone: '', email: '', vehicleType: '', message: '' });
+    
+    // Prepare the data to be sent to the backend
+    const data = {
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      vehicleType: formData.vehicleType,
+    };
+
+    try {
+      const response = await fetch('http://localhost:8000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      
+      if (response.ok) {
+        alert(result.message); // Success message
+        setFormData({ name: '', phone: '', email: '', vehicleType: '' });
+      } else {
+        alert('Error submitting the form!');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while submitting the form.');
+    }
   };
 
   return (
@@ -27,19 +53,42 @@ function ContactForm() {
       <h2>Contact Us for a Service</h2>
       <label>
         Name:
-        <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
       </label>
       <label>
         Phone Number:
-        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
+        <input
+          type="tel"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          required
+        />
       </label>
       <label>
         Email:
-        <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
       </label>
       <label>
         Vehicle Type:
-        <select name="vehicleType" value={formData.vehicleType} onChange={handleChange} required>
+        <select
+          name="vehicleType"
+          value={formData.vehicleType}
+          onChange={handleChange}
+          required
+        >
           <option value="">Select Vehicle Type</option>
           <option value="Car">Car</option>
           <option value="Bike">Bike</option>
