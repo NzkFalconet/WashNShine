@@ -4,17 +4,11 @@
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build"
-    },
-    {
-      "src": "backend/api/contact.js",
-      "use": "@vercel/node"
     }
+   
   ],
   "routes": [
-    {
-      "src": "/api/contact",
-      "dest": "backend/api/contact.js"
-    },
+   
     {
       "src": "/(.*)",
       "dest": "frontend/$1"
