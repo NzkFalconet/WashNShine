@@ -6,18 +6,14 @@
       "use": "@vercel/static-build"
     },
     {
-      "src": "api/contact.js",
+      "src": "backend/api/contact.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/contact",
-      "dest": "api/contact.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/build/$1"
+      "dest": "backend/api/contact.js"
     }
   ]
 }

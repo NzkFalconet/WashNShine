@@ -1,6 +1,6 @@
 // /api/contact.js
 const mongoose = require('mongoose');
-const Contact = require('../../Models/contact');
+const Contact = require('../Models/contact');
 require('dotenv').config();
 
 // Connect to MongoDB
