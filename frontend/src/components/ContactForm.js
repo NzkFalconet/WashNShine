@@ -1,3 +1,4 @@
+// /frontend/src/ContactForm.js
 import React, { useState } from 'react';
 import './ContactForm.css';
 
@@ -26,7 +27,7 @@ function ContactForm() {
     };
 
     try {
-      const response = await fetch('http://localhost:8000/api/contact', {
+      const response = await fetch('/api/contact', {  // Note that we use the relative path here for serverless functions
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

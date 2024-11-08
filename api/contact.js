@@ -18,21 +18,15 @@ module.exports = async (req, res) => {
         return res.status(400).json({ message: 'Please provide all fields.' });
       }
 
-      // Get the current date
-      const currentDate = new Date();
-
-      // Create a new contact document and save it
       const newContact = new Contact({ 
         name, 
         phone, 
         email, 
         vehicleType, 
-        createdAt: currentDate 
+        createdAt: new Date()
       });
 
       await newContact.save();
-      
-      // Respond with a success message
       res.status(200).json({ message: 'Thank you! Your details have been submitted successfully.' });
     } catch (err) {
       console.error(err);
