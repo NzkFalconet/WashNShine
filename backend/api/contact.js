@@ -10,6 +10,10 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 
 module.exports = async (req, res) => {
 
+   // Set CORS headers
+   res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins (you can replace '*' with your frontend URL for more security)
+   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow all HTTP methods
+   res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow specific headers
  
   if (req.method === 'POST') {
     try {
